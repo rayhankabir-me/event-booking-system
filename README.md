@@ -34,6 +34,8 @@ It includes authentication, event and ticket management, bookings, payments (moc
 ```bash
 git clone https://github.com/rayhankabir-me/event-booking-system.git
 cd event-booking-system
+
+2️⃣ Install Dependencies
 composer install
 cp .env.example .env
 
