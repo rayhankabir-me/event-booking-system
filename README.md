@@ -41,3 +41,44 @@ cd event-booking-system
 composer install
 cp .env.example .env
 
+2️⃣ Update your .env file:
+```bash
+APP_NAME="Event Booking System"
+APP_URL=https://event-booking-system.test
+DB_CONNECTION=mysql
+DB_DATABASE=event_booking
+DB_USERNAME=root
+DB_PASSWORD=
+QUEUE_CONNECTION=database
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=your_email@gmail.com
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="your_email@gmail.com"
+
+4️⃣ Generate App Key
+```bash
+php artisan key:generate
+
+5️⃣ Run Migrations & Seeders
+```bash
+php artisan migrate:fresh --seed
+
+6️⃣ Run Queue Worker
+```bash
+php artisan queue:work
+
+7️⃣ Start Development Server
+```bash
+php artisan serve
+
+Each authenticated request requires:
+Authorization: Bearer {token}
+
+
+# 🎟️ Postman collections are included in the root directory
+
+
+
