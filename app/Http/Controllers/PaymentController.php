@@ -9,7 +9,6 @@ use App\Models\Booking;
 use App\Models\Payment;
 use App\Services\PaymentService;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PaymentController extends Controller

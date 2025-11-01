@@ -4,14 +4,11 @@ namespace App\Services;
 
 use App\Enum\BookingStatusEnum;
 use App\Enum\PaymentStatusEnum;
-use App\Http\Requests\BookingRequest;
-use App\Http\Requests\PaginateRequest;
 use App\Http\Requests\PaymentRequest;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Models\Booking;
 use App\Models\Payment;
-use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentService

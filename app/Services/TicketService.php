@@ -12,61 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketService
 {
-    /**
-     * @throws Exception
-     */
-    // public function index(PaginateRequest $request)
-    // {
-    //     try {
-    //         $method      = $request->get('paginate', 0) == 1 ? 'paginate' : 'get';
-    //         $methodValue = $request->get('paginate', 0) == 1 ? $request->get('per_page', 10) : '*';
-    //         $orderColumn = $request->get('order_column') ?? 'id';
-    //         $orderType   = $request->get('order_type') ?? 'desc';
-
-    //         $query = Event::with('organizer');
-
-    //         if ($request->filled('created_by')) {
-    //             $query->where('created_by', $request->get('created_by'));
-    //         }
-
-    //         if ($request->filled('title')) {
-    //             $query->where('title', 'like', '%' . $request->get('title') . '%');
-    //         }
-
-    //         if ($request->filled('location')) {
-    //             $query->where('location', 'like', '%' . $request->get('location') . '%');
-    //         }
-
-    //         if ($request->filled('date_from') && $request->filled('date_to')) {
-    //             $query->whereBetween('date', [
-    //                 $request->get('date_from'),
-    //                 $request->get('date_to')
-    //             ]);
-    //         } else if ($request->filled('date_from')) {
-    //             $query->whereDate('date', '>=', $request->get('date_from'));
-    //         } else if ($request->filled('date_to')) {
-    //             $query->whereDate('date', '<=', $request->get('date_to'));
-    //         }
-
-    //         return $query->orderBy($orderColumn, $orderType)->$method($methodValue);
-    //     } catch (Exception $exception) {
-    //         Log::info($exception->getMessage());
-    //         throw new Exception($exception->getMessage(), 422);
-    //     }
-    // }
-
-    /**
-     * @throws Exception
-     */
-    // public function show(Event $event): Event
-    // {
-    //     try {
-    //         return $event->load('organizer', 'tickets');
-    //     } catch (Exception $exception) {
-    //         Log::info($exception->getMessage());
-    //         throw new Exception($exception->getMessage(), 422);
-    //     }
-    // }
 
     public function create(Event $event, TicketRequest $request)
     {
@@ -90,7 +35,6 @@ class TicketService
             throw new Exception($exception->getMessage(), 422);
         }
     }
-
 
     public function update(TicketRequest $request, Ticket $ticket)
     {

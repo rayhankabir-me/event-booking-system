@@ -8,8 +8,6 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Services\TicketService;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class TicketController extends Controller
 {
