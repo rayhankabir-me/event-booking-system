@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->prefix('tickets')->group(function() {
 });
 
 //booking apis
-Route::post('/tickets/{ticket}/bookings', [BookingController::class,'book'])->middleware(['auth:sanctum', 'role:customer']);
+Route::post('/tickets/{ticket}/bookings', [BookingController::class,'book'])->middleware(['auth:sanctum', 'role:customer', 'prevent.double.booking']);
 Route::middleware(('auth:sanctum'))->prefix('bookings')->group(function() {
     Route::get('/', [BookingController::class,'index']);
     Route::match(['put', 'patch'], '/{booking}/cancel', [BookingController::class,'cancel'])->middleware('role:customer');
