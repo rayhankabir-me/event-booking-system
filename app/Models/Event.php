@@ -32,4 +32,10 @@ class Event extends Model
         return $this->hasMany(Ticket::class, 'event_id', 'id'); 
     }
 
+    public function scopeSearch($query, $term) {
+        return $query->where(function($q) use ($term) {
+            $q->where("title","like","%".$term."%");
+        })->orWhere("description","like","%".$term."%")->orWhere("location","like","%".$term."%");
+    }
+
 }

@@ -31,11 +31,15 @@ class EventService
             }
 
             if ($request->filled('title')) {
-                $query->where('title', 'like', '%' . $request->get('title') . '%');
+                $query->search($request->get('title'));
+            }
+
+            if ($request->filled('description')) {
+                $query->search($request->get('description'));
             }
 
             if ($request->filled('location')) {
-                $query->where('location', 'like', '%' . $request->get('location') . '%');
+                $query->search($request->get('location'));
             }
 
             if ($request->filled('date_from') && $request->filled('date_to')) {

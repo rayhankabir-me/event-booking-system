@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Models\Booking;
 use App\Models\Payment;
+use App\Notifications\BookingConfirmed;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentService
@@ -23,6 +24,10 @@ class PaymentService
                 throw new Exception("Cannot pay for a cancelled booking.", 422);
             }
 
+            if($booking->status === BookingStatusEnum::CONFIRMED){
+                throw new Exception("Cannot pay for a confirmed booking.", 422);
+            }
+
             $payment = Payment::create([
                 'user_id' => Auth::id(),
                 'booking_id' => $booking->id,
@@ -33,6 +38,8 @@ class PaymentService
             if($payment && $booking->status === BookingStatusEnum::PENDING){
                 $booking->status = BookingStatusEnum::CONFIRMED;
                 $booking->save();
+
+                $booking->user->notify(new BookingConfirmed($booking));
             }
 
             return $payment;

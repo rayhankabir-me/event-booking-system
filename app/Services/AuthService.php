@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\PaginateRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Notifications\RegistrationSuccess;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -22,6 +23,7 @@ class AuthService
                 'role'              => $request->role ?? UserRoleEnum::CUSTOMER,
                 'password'          => Hash::make($request->password),
             ]);
+            $user->notify(new RegistrationSuccess($user));
             return $user;
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
