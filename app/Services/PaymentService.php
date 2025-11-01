@@ -11,13 +11,14 @@ use App\Models\Booking;
 use App\Models\Payment;
 use App\Notifications\BookingConfirmed;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PaymentService
 {
 
     public function pay(Booking $booking, PaymentRequest $request)
     {
-        
+        DB::beginTransaction();
         try {
 
             if($booking->status === BookingStatusEnum::CANCELLED){
@@ -41,10 +42,11 @@ class PaymentService
 
                 $booking->user->notify(new BookingConfirmed($booking));
             }
-
+            DB::commit();
             return $payment;
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
+            DB::rollBack();
             throw new Exception($exception->getMessage(), 422);
         }
     }

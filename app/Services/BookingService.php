@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Booking;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BookingService
 {
@@ -37,6 +38,7 @@ class BookingService
     public function book(Ticket $ticket, BookingRequest $request)
     {
         
+        DB::beginTransaction();
         try {
             $booking = Booking::create([
                 'user_id' => Auth::id(),
@@ -45,9 +47,11 @@ class BookingService
                 'status' => BookingStatusEnum::PENDING,
             ]);
 
+            DB::commit();
             return $booking;
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
+            DB::rollBack();
             throw new Exception($exception->getMessage(), 422);
         }
     }
