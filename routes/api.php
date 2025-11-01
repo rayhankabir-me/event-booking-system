@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,10 @@ Route::post('/tickets/{ticket}/bookings', [BookingController::class,'book'])->mi
 Route::middleware(('auth:sanctum'))->prefix('bookings')->group(function() {
     Route::get('/', [BookingController::class,'index']);
     Route::match(['put', 'patch'], '/{booking}/cancel', [BookingController::class,'cancel'])->middleware('role:customer');
+});
+
+//payment apis
+Route::post(('/bookings/{booking}/payment'), [PaymentController::class,'pay'])->middleware(['auth:sanctum', 'role:customer']);
+Route::middleware('auth:sanctum')->prefix('payments')->group(function() {
+    Route::get('/{payment}', [PaymentController::class,'show'])->middleware('role:customer');
 });

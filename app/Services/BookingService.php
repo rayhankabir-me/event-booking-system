@@ -7,10 +7,8 @@ use App\Http\Requests\BookingRequest;
 use App\Http\Requests\PaginateRequest;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests\TicketRequest;
 use App\Models\Booking;
 use App\Models\Ticket;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 
 class BookingService
