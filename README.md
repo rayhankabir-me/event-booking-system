@@ -37,12 +37,10 @@ cd event-booking-system
 
 
 2️⃣ Install Dependencies
-```bash
 composer install
 cp .env.example .env
 
 2️⃣ Update your .env file:
-```bash
 APP_NAME="Event Booking System"
 APP_URL=https://event-booking-system.test
 DB_CONNECTION=mysql
@@ -59,19 +57,15 @@ MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS="your_email@gmail.com"
 
 4️⃣ Generate App Key
-```bash
 php artisan key:generate
 
 5️⃣ Run Migrations & Seeders
-```bash
 php artisan migrate:fresh --seed
 
 6️⃣ Run Queue Worker
-```bash
 php artisan queue:work
 
 7️⃣ Start Development Server
-```bash
 php artisan serve
 
 Each authenticated request requires:
