@@ -27,7 +27,7 @@ class BookingService
             $orderColumn = $request->get('order_column') ?? 'id';
             $orderType   = $request->get('order_type') ?? 'desc';
 
-            $query = Booking::with('user', 'ticket');
+            $query = Booking::with('user', 'ticket')->where('user_id', Auth::id());
 
             return $query->orderBy($orderColumn, $orderType)->$method($methodValue);
         } catch (Exception $exception) {
@@ -55,21 +55,19 @@ class BookingService
     }
 
 
-    public function update(TicketRequest $request, Ticket $ticket)
+    public function cancel(Booking $booking)
     {
         try {
 
-            if ($ticket->event?->created_by !== Auth::id()) {
-                throw new Exception('You are not authorized to update this ticket', 403);
+            if ($booking->user_id !== Auth::id()) {
+                throw new Exception('You are not authorized to cancel this booking', 403);
             }
 
-            $ticket->update([
-                'type' => $request->type,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
+            $booking->update([
+                'status' => BookingStatusEnum::CANCELLED,
             ]);
 
-            return $ticket;
+            return $booking;
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);

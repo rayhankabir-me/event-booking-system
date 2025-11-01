@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookingRequest;
 use App\Http\Requests\PaginateRequest;
 use App\Http\Resources\BookingResource;
+use App\Models\Booking;
 use App\Models\Ticket;
 use App\Services\BookingService;
 use Exception;
@@ -34,6 +35,19 @@ class BookingController extends Controller
     {
         try {
             $booking = $this->bookingService->book($ticket, $request);
+            return new BookingResource($booking);
+        } catch (Exception $exception) {
+            return response([
+                'status' => false,
+                'message' => $exception->getMessage()
+            ], 422);
+        }
+    }
+
+    public function cancel(Booking $booking)
+    {
+        try {
+            $booking = $this->bookingService->cancel($booking);
             return new BookingResource($booking);
         } catch (Exception $exception) {
             return response([

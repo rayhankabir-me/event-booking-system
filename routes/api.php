@@ -40,6 +40,5 @@ Route::middleware('auth:sanctum')->prefix('tickets')->group(function() {
 Route::post('/tickets/{ticket}/bookings', [BookingController::class,'book'])->middleware(['auth:sanctum', 'role:customer']);
 Route::middleware(('auth:sanctum'))->prefix('bookings')->group(function() {
     Route::get('/', [BookingController::class,'index']);
-    // Route::get('/{booking}', [BookingController::class,'show']);
-    // Route::delete('/{booking}', [BookingController::class,'cancel'])->middleware('role:customer');
+    Route::match(['put', 'patch'], '/{booking}/cancel', [BookingController::class,'cancel'])->middleware('role:customer');
 });
