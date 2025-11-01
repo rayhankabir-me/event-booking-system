@@ -30,10 +30,10 @@ It includes authentication, event and ticket management, bookings, payments (moc
 
 ## ⚙️ Installation Guide
 
-### 1️⃣ Clone the Repository
-```bash
+1️⃣ Clone the Repository
 git clone https://github.com/rayhankabir-me/event-booking-system.git
 cd event-booking-system
+
 
 2️⃣ Install Dependencies
 composer install
